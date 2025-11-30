@@ -19,8 +19,8 @@
                     Console.WriteLine($"Error: {ex.Message}");
                 }
                 Console.WriteLine("Do you want to perform another calculation? (y/n): ");
-                string? cont = Console.ReadLine();
-                if (cont?.ToLower() != "y")
+                string? @continue = Console.ReadLine();
+                if (@continue?.ToLower() != "y")
                 {
                     break;
                 }

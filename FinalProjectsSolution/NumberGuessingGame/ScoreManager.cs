@@ -15,10 +15,10 @@ public class ScoreManager
             File.WriteAllText(filePath, "Name,Score\n");
     }
 
-   
-    /// Inserts a new player score or updates existing one.
-    /// Keeps only the higher score.
-    
+
+    /// შეაქ ახალი მოთამაშის ქულა. ან ანახლებს არსებულს.
+    /// იტოვებს მხოლოდ უკეთეს ქულას.
+
     public void UpsertScore(Score score)
     {
         try
@@ -26,11 +26,11 @@ public class ScoreManager
             var existingScore = ReadAllScores()
                 .FirstOrDefault(s => s.Name == score.Name);
 
-            // Keep only better score
+            //თუკი არსებული ქულა უკეთესია, არ აკეთებს არაფერს
             if (existingScore != null && existingScore.HighScore >= score.HighScore)
                 return;
 
-            // Rewrite updated list
+            // განახლებული ლისტის დამატება
             var allScores = ReadAllScores()
                 .Where(s => s.Name != score.Name)
                 .Append(score)
@@ -44,9 +44,9 @@ public class ScoreManager
         }
     }
 
-    
-    /// Returns top 10 scores.
-    
+
+    /// აბრუნებს საუკეთესო ათ ქულას.
+
     public List<Score> GetTopTenScores()
     {
         return ReadAllScores()
@@ -55,9 +55,9 @@ public class ScoreManager
             .ToList();
     }
 
- 
-    /// Streams scores lazily using yield return.
-    
+
+    // From CSV file.
+
 
     public IEnumerable<Score> ReadAllScores()
     {
@@ -65,7 +65,7 @@ public class ScoreManager
 
         try
         {
-            // Read lines before yield block
+            
             lines = File.ReadLines(filePath).Skip(1);
         }
         catch (Exception ex)
@@ -74,7 +74,7 @@ public class ScoreManager
             yield break;
         }
 
-        // Iterator block (legal yield usage)
+       
         foreach (var line in lines)
         {
             var parts = line.Split(',');
@@ -86,9 +86,9 @@ public class ScoreManager
         }
     }
 
-    
-    /// Writes a list of scores to the CSV file.
-  
+
+    /// list to CSV file.
+
     private void WriteAllScores(IEnumerable<Score> scores)
     {
         using StreamWriter writer = new StreamWriter(filePath);

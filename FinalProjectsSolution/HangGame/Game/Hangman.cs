@@ -18,7 +18,8 @@
             _guessedLetters = new HashSet<char>();
         }
 
-       
+
+        // თუ c არის _revealed-ში, მაშინ შედეგს დაემატება c, წინააღმდეგ შემთხვევაში დაემატება "_"
         public string MaskedWord
         {
             get
@@ -39,7 +40,7 @@
             }
         }
 
-       
+       // ვამოწმებთ ყველა გამოვიცანით თუ არა
         public bool IsFullyRevealed
         {
             get
@@ -53,7 +54,7 @@
             }
         }
 
-        
+        // ვთვლით რამდენი უნიკალური მცდარი ასო გვაქვს
         public int WrongUniqueGuesses
         {
             get
@@ -82,7 +83,7 @@
             }
         }
 
-       
+        // ვაბრუნებთ ყველა გამოცნობილს
         public IEnumerable<char> GuessedLetters
         {
             get
@@ -95,6 +96,7 @@
             }
         }
 
+        // თამაშის მთავარი  ლოგიკა თუ ასოები გამოვიცანით გამოაჩენს და ა.შ.
         public List<int> GuessLetter(char letter)
         {
             letter = char.ToLower(letter);
@@ -115,6 +117,7 @@
             return positions;
         }
 
+        // საბოლოო გამოიცნო თუ არა სიტყვა
         public bool GuessWord(string attempt)
         {
             if (attempt == null)
@@ -125,6 +128,7 @@
             return string.Equals(attempt, _word, StringComparison.OrdinalIgnoreCase);
         }
 
+        //ქულის დათვლა
         public int CalculateScore()
         {
             
