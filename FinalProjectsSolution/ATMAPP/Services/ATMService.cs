@@ -9,6 +9,7 @@ namespace ATMApp.Services
         private readonly UserService _userService = new UserService();
         private readonly LoggerService _logger = new LoggerService();
 
+        //შევამოწმოთ ბალანსი, დეპოზიტი და გამოტანა
         public async Task CheckBalanceAsync(User user)
         {
             Console.WriteLine($"Balance: {user.Balance} GEL");

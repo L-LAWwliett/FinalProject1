@@ -7,11 +7,13 @@ using ATMApp.Models;
 
 namespace ATMApp.Data
 {
+    
     public class UserRepository
     {
         private readonly string _filePath = "users.json";
         private readonly JsonSerializerOptions _opts = new JsonSerializerOptions { WriteIndented = true };
 
+        // იტვირთავს მომხმარებლებს JSON ფაილიდან
         public async IAsyncEnumerable<User> LoadUsersAsync()
         {
             if (!File.Exists(_filePath)) yield break;
@@ -24,7 +26,7 @@ namespace ATMApp.Data
 
             foreach (var u in users) yield return u;
         }
-
+        // ინახავს მომხმარებლებს JSON ფაილში
         public async Task SaveUsersAsync(IEnumerable<User> users)
         {
             var list = users.ToList();

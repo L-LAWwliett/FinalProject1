@@ -12,6 +12,7 @@ namespace ATMApp.Data
         private readonly string _filePath = "log.json";
         private readonly JsonSerializerOptions _opts = new JsonSerializerOptions { WriteIndented = true };
 
+        // იტვირთავს ლოგებს JSON ფაილიდან
         public async IAsyncEnumerable<LogEntry> LoadLogsAsync()
         {
             if (!File.Exists(_filePath)) yield break;
@@ -25,6 +26,7 @@ namespace ATMApp.Data
             foreach (var l in logs) yield return l;
         }
 
+        // ამატებს ახალ ლოგს JSON ფაილში
         public async Task AddLogAsync(LogEntry entry)
         {
             var list = new List<LogEntry>();

@@ -13,6 +13,7 @@ namespace HangGame.Services
             _serializer = new XmlSerializer(typeof(List<PlayerRecord>));
         }
 
+        // აბრუნებს მოთამაშეების სტატისტიკას XML ფაილიდან ლისტის სახით
         public List<PlayerRecord> Load()
         {
             try
@@ -29,6 +30,7 @@ namespace HangGame.Services
             }
         }
 
+        // ინახავს მოთამაშეების სტატისტიკას XML ფაილში
         public void Save(List<PlayerRecord> records)
         {
             try
@@ -41,7 +43,7 @@ namespace HangGame.Services
                 Console.WriteLine($"Failed to save stats: {ex.Message}");
             }
         }
-
+        // ანახლებს მოთამაშის რეკორდს ან ქმნის ახალს
         public void UpdatePlayerRecord(string playerName, int newScore)
         {
             var records = Load();
@@ -61,6 +63,7 @@ namespace HangGame.Services
             Save(records);
         }
 
+        // აბრუნებს ტოპ N(ამ შემთხვევაში 10) მოთამაშეს მათი საუკეთესო ქულებით
         public List<PlayerRecord> GetTopPlayers(int top = 10)
         {
             return Load()

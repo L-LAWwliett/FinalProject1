@@ -10,6 +10,7 @@ namespace ATMApp.Services
     {
         private readonly LogRepository _repo = new LogRepository();
 
+        // ლოგავს შეტყობინებას და მომხმარებლის პირად ნომერს
         public async Task LogAsync(string message, string userPersonalNumber)
         {
             await _repo.AddLogAsync(new LogEntry
@@ -20,6 +21,7 @@ namespace ATMApp.Services
             }).ConfigureAwait(false);
         }
 
+        // ფილტრავს ლოგებს მოცემული პირობითი ფუნქციის მიხედვით
         public async IAsyncEnumerable<LogEntry> FilterLogsAsync(Func<LogEntry, bool> predicate)
         {
             await foreach (var log in _repo.LoadLogsAsync().ConfigureAwait(false))
@@ -28,6 +30,7 @@ namespace ATMApp.Services
             }
         }
 
+        // აბრუნებს ყველა ლოგს
         public IAsyncEnumerable<LogEntry> GetAllLogsAsync() => _repo.LoadLogsAsync();
     }
 }

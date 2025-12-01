@@ -11,16 +11,23 @@ namespace ATMApp.Services
     {
         private readonly UserRepository _repo = new UserRepository();
 
+        // არეგისტრირებს ახალ მომხმარებელს
         public async Task<User> RegisterUserAsync(string first, string last, string personal)
         {
             if (string.IsNullOrWhiteSpace(first) || string.IsNullOrWhiteSpace(last) || string.IsNullOrWhiteSpace(personal))
                 throw new ArgumentException("Firstname, lastname and personal number are required.");
+
+            if (personal.Length != 11 || !personal.All(char.IsDigit))
+                throw new ArgumentException("Personal number must be exactly 11 digits long.");
 
             var users = new List<User>();
             await foreach (var u in _repo.LoadUsersAsync()) users.Add(u);
 
             if (users.Any(u => u.PersonalNumber == personal))
                 throw new InvalidOperationException("User with this personal number already exists.");
+
+            
+
 
             string password = new Random().Next(1000, 10000).ToString();
 
@@ -39,6 +46,7 @@ namespace ATMApp.Services
             return newUser;
         }
 
+        // აბრუნებს მომხმარებელს პირადი ნომრითა და პაროლით
         public async Task<User?> GetUserAsync(string personal, string password)
         {
             await foreach (var u in _repo.LoadUsersAsync())
@@ -49,6 +57,7 @@ namespace ATMApp.Services
             return null;
         }
 
+        // ანახლებს მომხმარებლის ინფორმაციას
         public async Task UpdateUserAsync(User updated)
         {
             var users = new List<User>();
