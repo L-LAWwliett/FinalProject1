@@ -5,13 +5,13 @@ public class Game
 {
     private readonly int min;
     private readonly int max;
-    private readonly string playerName;
+    
     private readonly int secretNumber;
     private const int maxAttempts = 10;
 
     public Game(string name, int min, int max)
     {
-        this.playerName = name;
+        
         this.min = min;
         this.max = max;
 
